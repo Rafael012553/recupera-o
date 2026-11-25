@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block titulo %}Aplicação · VacinaFácil{% endblock %}
+{% block conteudo %}
+{% set editando = aplicacao and aplicacao.id %}
+<h1>{{ 'Editar aplicação' if editando else 'Nova aplicação' }}</h1>
+
+{% if not pacientes or not vacinas %}
+    <p class="vazio">Cadastre ao menos um paciente e uma vacina antes de registrar uma aplicação.</p>
+{% endif %}
+
+<form class="formulario" method="post"
+      action="{{ url_for('editar_aplicacao', id=aplicacao.id) if editando else url_for('nova_aplicacao') }}">
+    <label for="paciente_id">Paciente *</label>
+    <select id="paciente_id" name="paciente_id" required>
+        <option value="">Selecione...</option>
+        {% for p in pacientes %}
+            <option value="{{ p.id }}"
+                {{ 'selected' if aplicacao and aplicacao.paciente_id|string == p.id|string }}>{{ p.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="vacina_id">Vacina *</label>
+    <select id="vacina_id" name="vacina_id" required>
+        <option value="">Selecione...</option>
+        {% for v in vacinas %}
+            <option value="{{ v.id }}"
+                {{ 'selected' if aplicacao and aplicacao.vacina_id|string == v.id|string }}>{{ v.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="data_aplicacao">Data da aplicação *</label>
+    <input type="date" id="data_aplicacao" name="data_aplicacao"
+           value="{{ aplicacao.data_aplicacao if aplicacao else '' }}" required>
+
+    <label for="dose">Dose * (ex.: 1ª dose, 2ª dose, reforço)</label>
+    <input type="text" id="dose" name="dose" value="{{ aplicacao.dose if aplicacao else '' }}" required>
+
+    <label for="lote">Lote</label>
+    <input type="text" id="lote" name="lote" value="{{ aplicacao.lote if aplicacao else '' }}">
+
+    <label for="observacoes">Observações</label>
+    <textarea id="observacoes" name="observacoes" rows="3">{{ aplicacao.observacoes if aplicacao else '' }}</textarea>
+
+    <div class="botoes">
+        <button type="submit">Salvar</button>
+        <a href="{{ url_for('listar_aplicacoes') }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

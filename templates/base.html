@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}VacinaFácil{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <a class="logo" href="{{ url_for('index') }}">💉 VacinaFácil</a>
+            <nav class="menu">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('listar_pacientes') }}">Pacientes</a>
+                <a href="{{ url_for('listar_vacinas') }}">Vacinas</a>
+                <a href="{{ url_for('listar_aplicacoes') }}">Aplicações</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, texto in mensagens %}
+                <div class="aviso {{ categoria }}">{{ texto }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="rodape">
+        VacinaFácil · Projeto de recuperação MedTec 2026 · PREENCHER: seu nome
+    </footer>
+</body>
+</html>

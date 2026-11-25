@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Início · VacinaFácil{% endblock %}
+{% block conteudo %}
+<h1>Controle de vacinação</h1>
+<p class="subtitulo">Cadastre pacientes e vacinas e registre cada dose aplicada.</p>
+
+<section class="cards">
+    <a class="card" href="{{ url_for('listar_pacientes') }}">
+        <span class="numero">{{ totais.pacientes }}</span>
+        <span>Pacientes</span>
+    </a>
+    <a class="card" href="{{ url_for('listar_vacinas') }}">
+        <span class="numero">{{ totais.vacinas }}</span>
+        <span>Vacinas</span>
+    </a>
+    <a class="card" href="{{ url_for('listar_aplicacoes') }}">
+        <span class="numero">{{ totais.aplicacoes }}</span>
+        <span>Aplicações</span>
+    </a>
+</section>
+
+<h2>Últimas aplicações</h2>
+{% if recentes %}
+<div class="tabela-wrap">
+    <table>
+        <thead><tr><th>Data</th><th>Paciente</th><th>Vacina</th><th>Dose</th></tr></thead>
+        <tbody>
+        {% for r in recentes %}
+            <tr>
+                <td>{{ r.data_aplicacao }}</td>
+                <td>{{ r.paciente }}</td>
+                <td>{{ r.vacina }}</td>
+                <td>{{ r.dose }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="vazio">Nenhuma aplicação registrada ainda.</p>
+{% endif %}
+
+<p><a class="botao" href="{{ url_for('nova_aplicacao') }}">+ Registrar aplicação</a></p>
+{% endblock %}

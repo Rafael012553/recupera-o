@@ -1,0 +1,125 @@
+/* VacinaFácil - estilos (UC31). Mobile first: telas pequenas por padrão. */
+:root {
+    --verde: #0f766e;
+    --verde-escuro: #115e59;
+    --fundo: #f4f7f6;
+    --texto: #1f2937;
+    --borda: #d5dedc;
+    --erro: #b91c1c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho e menu */
+.topo { background: var(--verde); color: #fff; }
+.topo-conteudo {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.logo { color: #fff; font-size: 1.3rem; font-weight: 700; text-decoration: none; }
+.menu { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+.menu a { color: #d1fae5; text-decoration: none; padding: 0.25rem 0; }
+.menu a:hover { color: #fff; text-decoration: underline; }
+
+/* Conteúdo */
+.container { max-width: 960px; width: 100%; margin: 0 auto; padding: 1rem; flex: 1; }
+h1 { margin: 0.5rem 0; font-size: 1.5rem; }
+h2 { margin-top: 1.5rem; font-size: 1.2rem; }
+.subtitulo { color: #4b5563; margin-top: 0; }
+.vazio { color: #6b7280; font-style: italic; }
+
+.cabecalho-pagina {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+/* Avisos (flash) */
+.aviso { padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+.aviso.ok { background: #d1fae5; color: #065f46; }
+.aviso.erro { background: #fee2e2; color: var(--erro); }
+
+/* Cards da home */
+.cards { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 1rem 0; }
+.card {
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+.card:hover { border-color: var(--verde); }
+.card .numero { display: block; font-size: 2rem; font-weight: 700; color: var(--verde); }
+
+/* Botões */
+.botao, button {
+    display: inline-block;
+    background: var(--verde);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+.botao:hover, button:hover { background: var(--verde-escuro); }
+button.perigo { background: var(--erro); padding: 0.25rem 0.6rem; font-size: 0.9rem; }
+
+/* Tabelas (rolagem horizontal no celular) */
+.tabela-wrap { overflow-x: auto; background: #fff; border: 1px solid var(--borda); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--borda); }
+th { background: #e6f0ee; font-size: 0.9rem; }
+tr:last-child td { border-bottom: none; }
+.acoes { display: flex; gap: 0.75rem; align-items: center; }
+.acoes form { margin: 0; }
+
+/* Formulários */
+.busca { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; align-items: center; }
+.busca input, .busca select { flex: 1; min-width: 180px; }
+.formulario {
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 520px;
+}
+label { display: block; margin: 0.75rem 0 0.25rem; font-weight: 600; }
+input, select, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    font-family: inherit;
+}
+.botoes { margin-top: 1rem; display: flex; gap: 1rem; align-items: center; }
+
+a { color: var(--verde); }
+.rodape { text-align: center; padding: 1rem; color: #6b7280; font-size: 0.85rem; }
+
+/* Telas maiores */
+@media (min-width: 640px) {
+    .topo-conteudo { flex-direction: row; justify-content: space-between; align-items: center; }
+    .cards { grid-template-columns: repeat(3, 1fr); }
+}

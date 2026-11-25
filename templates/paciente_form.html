@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Paciente · VacinaFácil{% endblock %}
+{% block conteudo %}
+{% set editando = paciente and paciente.id %}
+<h1>{{ 'Editar paciente' if editando else 'Novo paciente' }}</h1>
+
+<form class="formulario" method="post"
+      action="{{ url_for('editar_paciente', id=paciente.id) if editando else url_for('novo_paciente') }}">
+    <label for="nome">Nome completo *</label>
+    <input type="text" id="nome" name="nome" value="{{ paciente.nome if paciente else '' }}" required>
+
+    <label for="data_nascimento">Data de nascimento *</label>
+    <input type="date" id="data_nascimento" name="data_nascimento"
+           value="{{ paciente.data_nascimento if paciente else '' }}" required>
+
+    <label for="telefone">Telefone</label>
+    <input type="tel" id="telefone" name="telefone" value="{{ paciente.telefone if paciente else '' }}">
+
+    <div class="botoes">
+        <button type="submit">Salvar</button>
+        <a href="{{ url_for('listar_pacientes') }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

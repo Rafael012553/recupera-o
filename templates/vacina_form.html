@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Vacina · VacinaFácil{% endblock %}
+{% block conteudo %}
+{% set editando = vacina and vacina.id %}
+<h1>{{ 'Editar vacina' if editando else 'Nova vacina' }}</h1>
+
+<form class="formulario" method="post"
+      action="{{ url_for('editar_vacina', id=vacina.id) if editando else url_for('nova_vacina') }}">
+    <label for="nome">Nome da vacina *</label>
+    <input type="text" id="nome" name="nome" value="{{ vacina.nome if vacina else '' }}" required>
+
+    <label for="fabricante">Fabricante</label>
+    <input type="text" id="fabricante" name="fabricante" value="{{ vacina.fabricante if vacina else '' }}">
+
+    <label for="doses_total">Total de doses do esquema *</label>
+    <input type="number" id="doses_total" name="doses_total" min="1"
+           value="{{ vacina.doses_total if vacina else 1 }}" required>
+
+    <div class="botoes">
+        <button type="submit">Salvar</button>
+        <a href="{{ url_for('listar_vacinas') }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
